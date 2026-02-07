@@ -1,51 +1,146 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aarti, Be My Valentine ❤️</title>
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["root"]
+<style>
+body{
+  margin:0;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  text-align:center;
+  overflow:hidden;
+  color:white;
+}
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+section{
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:20px;
+}
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+.active{ display:flex; }
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+h1{
+  font-size:2.4rem;
+  animation: pulse 1.4s infinite;
+}
 
-jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+p{
+  font-size:1.3rem;
+}
 
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+button{
+  padding:14px 28px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:30px;
+  margin:10px;
+  cursor:pointer;
+}
+
+.yes{ background:#ff003c; color:white; }
+.no{
+  background:#444;
+  color:white;
+  position:relative;
+}
+
+.teddy{
+  font-size:90px;
+  animation: teddyMove 2s infinite alternate;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.12);}
+  100%{transform:scale(1);}
+}
+
+@keyframes teddyMove{
+  from{transform:translateX(-25px);}
+  to{transform:translateX(25px);}
+}
+
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<section class="active" id="s1">
+  <h1>Aarti 💖</h1>
+  <h1>Will you be my Valentine? 💘</h1>
+  <button class="yes" onclick="go(2)">YES 💕</button>
+  <button class="no" onmouseover="moveNo()">NO 🙈</button>
+</section>
+
+<!-- SCREEN 2 -->
+<section id="s2">
+  <h1>Aarti 🥰</h1>
+  <div class="teddy">🧸</div>
+  <p>How much do you love me? 💞</p>
+  <button class="yes" onclick="go(3)">A little ❤️</button>
+  <button class="yes" onclick="go(3)">A lot 💖</button>
+  <button class="yes" onclick="go(3)">Infinity ♾️😍</button>
+</section>
+
+<!-- SCREEN 3 -->
+<section id="s3">
+  <h1>Aarti 💕</h1>
+  <p>You make my world brighter every day ✨</p>
+  <p>My smile starts with you 😊</p>
+  <button class="yes" onclick="go(4)">Next 💌</button>
+</section>
+
+<!-- SCREEN 4 -->
+<section id="s4">
+  <h1>Happy Valentine’s Day Aarti ❤️</h1>
+  <div class="teddy">🧸💖</div>
+  <p>
+    You are not just my Valentine,<br>
+    you are my heart, my happiness,<br>
+    my forever 💝
+  </p>
+  <h2 style="margin-top:20px;">With all my love,<br>Prem ❤️</h2>
+</section>
+
+<script>
+function go(n){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+}
+
+function moveNo(){
+  const btn=document.querySelector(".no");
+  btn.style.left=Math.random()*200-100+"px";
+  btn.style.top=Math.random()*200-100+"px";
+}
+
+function hearts(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(hearts,250);
+</script>
+
+</body>
+</html>
